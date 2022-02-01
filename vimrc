@@ -1,5 +1,3 @@
-"this line is for pathogen
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
 set number
@@ -10,7 +8,8 @@ set visualbell
 set laststatus=2
 
 "for highlighting 120 column length
-"set colorcolumn=100      
+set colorcolumn=100      
+
 "Reformat lines which is more than 120 character long.
 set tw=100
 au BufRead,BufNewFile *.md setlocal textwidth=80
@@ -19,14 +18,13 @@ nnoremap gqa :g/./ normal gqq <Enter>
 "don't pretend to be vi
 set nocompatible
 
-
 "custom status line
 set statusline=%t\ \        "tail of the file name
 set statusline+=%h\       "help file flag
 set statusline+=%m\       "modified flag
 set statusline+=%r\       "read only flag
 set statusline+=type:%y\       "file type
-set statusline+=obsession:\ %{ObsessionStatus()}  "Obsession status line
+"set statusline+=obsession:\ %{ObsessionStatus()}  Obsession status line
 set statusline+=%=      "left/right separator
 set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
@@ -58,14 +56,10 @@ set updatetime=100
 "no swp file
 set noswapfile
 
-"key to run emit 
-let g:user_emmet_leader_key=','
-
-
 set shellcmdflag=-ic
 
 "highlight the search result
-"set hlsearch
+set hlsearch
 
 "spell checking
 set spell spelllang=en_us
@@ -73,20 +67,14 @@ set spell spelllang=en_us
 "make backspace key work
 set backspace=indent,eol,start
 
-"coc vim's config
-:so ~/Documents/badal-system-setup/dotfiles/coc.vim
-
-
-
-
 "+++++++++++++++++++++++++++++++++
 "key binding
 "+++++++++++++++++++++++++++++++++
 "tabe navigating 
-"inoremap <C-j>  <Esc>:tabprevious<CR>
-"inoremap <C-k>  <Esc>:tabnext<CR>
-"inoremap <C-h>  <Esc>:tabfirst<CR>
-"inoremap <C-l>  <Esc>:tablast<CR>
+inoremap <C-j>  <Esc>:tabprevious<CR>
+inoremap <C-k>  <Esc>:tabnext<CR>
+inoremap <C-h>  <Esc>:tabfirst<CR>
+inoremap <C-l>  <Esc>:tablast<CR>
 nnoremap <C-j>  gT
 nnoremap <C-k>  gt
 nnoremap <C-h>  :tabfirst<CR>
@@ -112,50 +100,25 @@ nnoremap <C-t> :!
 "list function in normal mode
 
 
-
-" Vim-prettier config
-" Max line length that prettier will wrap on: a number or 'auto' (use
-" textwidth).
-" default: 'auto'
-let g:prettier#config#print_width = 80 
-let g:prettier#exec_cmd_async = 1
-
-
-"fuzzy file search
-set path+=**
-set wildmenu
-
-
-"ctlp settingss
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-
-"++++++++++++++++++++++
-"mkdx setting
-"++++++++++++++++++++++
-let g:mkdx#settings     = { 'highlight': { 'enable': 1 },
-                        \ 'enter': { 'shift': 0 },
-                        \ 'links': { 'external': { 'enable': 1 } },
-                        \ 'toc': { 'text': 'Table of Contents', 'update_on_write': 1 },
-                        \ 'fold': { 'enable': 1 },
-                        \ 'table':{'align':{
-                                    \ 'left':    [],
-                                    \ 'center':  [],
-                                    \ 'right':   [],
-                                    \ 'default': 'left'}}}
-let g:polyglot_disabled = ['markdown'] " for vim-polyglot users, it loads Plasticboy's markdown
-                                       " plugin which unfortunately interferes with mkdx list indentation.
-set conceallevel=2
-
-"for ctags
-set tags=./tags;/
-
-
-"tag bar config
-let g:tagbar_ctags_bin = '/snap/bin/ctags'
-
 set foldmethod=manual
 set foldcolumn=1
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
 
+"spelling error highlight
+hi clear SpellBad
+hi SpellBad cterm=underline
+hi SpellBad ctermfg=red
+
+
+
+" vim plug
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+Plug 'dyng/ctrlsf.vim'
+
+" Initialize plugin system
+call plug#end()
